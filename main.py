@@ -3,6 +3,10 @@
 from calculator_gui import CalGui
 import tkinter as tk
 
-root = tk.Tk()
-app = CalGui(root)
-root.mainloop()
+def main():
+    root = tk.Tk()
+    app = CalGui(root)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
