@@ -7,10 +7,6 @@ class CalGui:
     
     def __init__(self, root):
         
-        self.first_num = ""
-        self.operator = ""
-        self.second_num = ""
-        
         self.root = root 
         self.root.title("Calculator")
         self.root.geometry("280x300")
@@ -36,21 +32,37 @@ class CalGui:
         row = 0
         col = 0
         for btn in buttons:
-            tk.Button(frame, text=btn, width=7, height=2,
-                    command=lambda x=btn: self.on_click(x)).grid(row=row, column=col)
-
-            col += 1
-            
-            if col > 3:
-                col = 0
-                row +=1
+            if btn == "=":
+                tk.Button(
+                    frame,
+                    text=btn,
+                    width=32,
+                    height=2,
+                    command=lambda x=btn: self.on_click(x)
+                ).grid(row=row, column=0, columnspan=4)
+            else:
+                tk.Button(frame, 
+                        text=btn, 
+                        width=7, 
+                        height=2,
+                        command=lambda x=btn: self.on_click(x)
+                ).grid(row=row, column=col)
+                col += 1
+                
+                if col > 3:
+                    col = 0
+                    row +=1
     
     def calculate(self):
         try:
             expr = self.expression.replace("x", "*").replace("^", "**")
             
             result = eval(expr)
-
+            
+            self.display.delete(0, tk.END)
+            self.display.insert(tk.END, result)
+            
+            self.expression = str(result)
         except ZeroDivisionError:
             self.display.delete(0, tk.END)
             self.display.insert(tk.END, "Cannot divide by 0")
@@ -66,5 +78,11 @@ class CalGui:
             self.expression = ""
             self.display.delete(0, tk.END)
         
-
+        elif value == "=": 
+            self.calculate()
+        
+        else:
+            self.expression += str(value)
+            self.display.delete(0, tk.END)
+            self.display.insert(tk.END, self.expression)
         
