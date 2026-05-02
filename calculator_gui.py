@@ -7,6 +7,10 @@ class CalGui:
     
     def __init__(self, root):
         
+        self.first_num = ""
+        self.operator = ""
+        self.second_num = ""
+        
         self.root = root 
         self.root.title("Calculator")
         self.root.geometry("500x500")
@@ -19,3 +23,15 @@ class CalGui:
         
         self.icon = tk.PhotoImage(file="calculator_logo.png")
         self.root.iconphoto(True, self.icon)
+        
+        frame = tk.Frame(root)
+        frame.pack()
+        
+        buttons = ["1", "2", "3", "C"
+                "4", "5", "6", "+"
+                "7", "8", "9", "-"
+                "0", "x", "/", "^",
+                "="]
+        
+    
+        
