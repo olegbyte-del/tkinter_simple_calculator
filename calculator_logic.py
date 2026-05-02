@@ -27,4 +27,4 @@ class CalFeatures:
         
     def save_memory(self.math_expression, self.result):
         with open("history.txt", "a") as file:
-            file.write(f"{self.math_expression} = {self.result}")
+            file.write(f"{self.math_expression} = {self.result}")   
