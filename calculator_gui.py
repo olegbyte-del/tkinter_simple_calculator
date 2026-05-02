@@ -13,7 +13,7 @@ class CalGui:
         
         self.root = root 
         self.root.title("Calculator")
-        self.root.geometry("200x280")
+        self.root.geometry("280x300")
         
         self.feature = cl.CalFeatures()
         self.expression = ""
@@ -36,7 +36,7 @@ class CalGui:
         row = 0
         col = 0
         for btn in buttons:
-            tk.Button(frame, text=btn, width=5, height=2,
+            tk.Button(frame, text=btn, width=7, height=2,
                     command=lambda x=btn: self.on_click(x)).grid(row=row, column=col)
 
             col += 1
@@ -44,3 +44,27 @@ class CalGui:
             if col > 3:
                 col = 0
                 row +=1
+    
+    def calculate(self):
+        try:
+            expr = self.expression.replace("x", "*").replace("^", "**")
+            
+            result = eval(expr)
+
+        except ZeroDivisionError:
+            self.display.delete(0, tk.END)
+            self.display.insert(tk.END, "Cannot divide by 0")
+            self.expression = ""
+        
+        except Exception:
+            self.display.delete(0, tk.END)
+            self.display.insert(tk.END, "Error")
+            self.expression = ""
+            
+    def on_click(self, value): 
+        if value == "C":
+            self.expression = ""
+            self.display.delete(0, tk.END)
+        
+
+        
