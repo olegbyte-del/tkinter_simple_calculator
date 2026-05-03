@@ -11,6 +11,11 @@ class CalGui:
         self.root.title("Calculator")
         self.root.geometry("280x300")
         
+        self.first_num = ""
+        self.operation = ""
+        self.second_num = ""
+        
+        self.operation = cl.CalFeatures()
         self.feature = cl.CalFeatures()
         self.expression = ""
         
@@ -53,9 +58,20 @@ class CalGui:
                     col = 0
                     row +=1
     
-    def calculate(self):
+    def calculate(self, value):
         try:
             expr = self.expression.replace("x", "*").replace("^", "**")
+            
+            self.display.insert(tk.END, "Press anything to start")
+            
+            num1 = float(self.first_num)
+            num2 = float(self.second_num)
+            
+            if self.operation == "+": 
+                result = cl.CalOperations.add(num1, num2)
+            
+
+            
             
             result = eval(expr)
             
