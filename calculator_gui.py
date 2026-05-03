@@ -66,6 +66,13 @@ class CalGui:
                 if col > 3:
                     col = 0
                     row +=1
+                    
+    def show_history(self):
+        history = self.feature.load_memory()
+        
+        self.display.delete(0, tk.END)
+        self.display.insert(tk.END, "".join(history))
+        
     
     def calculate(self):
         try:
@@ -93,6 +100,9 @@ class CalGui:
             
             self.display.delete(0, tk.END)
             self.display.insert(tk.END, result)
+            
+            expression = f"{self.first_num} {self.operation} {self.second_num}"
+            self.feature.save_memory(expression, result)
             
             self.first_num = str(result)
             self.second_num = ""
@@ -123,7 +133,7 @@ class CalGui:
             self.calculate()
         
         elif value == "History":
-            pass
+            self.show_history()
             
         else:
             operators = ["+", "-", "x", "/", "^"]
