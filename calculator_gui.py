@@ -110,12 +110,26 @@ class CalGui:
             
         elif value == "=": 
             self.calculate()
-        
+            
         else:
-            self.display.insert(tk.END, value)
-
-            if self.operation == "":
-                self.first_num += value
+            operators = ["+", "-", "x", "/", "^"]
+            
+            if value in operators:
+                if self.first_num == "": 
+                    return 
+                if self.operation != "":
+                    return
+                
+                self.operation = value
+                self.display.insert(tk.END, value)
+                
+            elif self.first_num and not self.operation:
+                    self.operation = value
+                    
             else:
-                self.second_num += value
+                self.display.insert(tk.END, value)
+                if self.operation == "":
+                    self.first_num += value
+                else:
+                    self.second_num += value
             
