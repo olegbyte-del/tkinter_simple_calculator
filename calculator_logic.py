@@ -57,6 +57,8 @@ class CalFeatures:
             return []
         
     def load_previous(self):
+        """Loads the most recent calculation stored in 'previous.txt'."""
+
         try:
             with open("previous.txt", "r") as file:
                 return file.read()

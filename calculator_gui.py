@@ -4,9 +4,11 @@ import calculator_logic as cl
 import tkinter as tk
 
 class CalGui:
+    """GUI class for a simple calculator using Tkinter"""
     
     def __init__(self, root):
-        
+        """Initializes the calculator GUI, layout, and state variables."""
+
         self.root = root 
         self.root.title("Calculator")
         self.root.geometry("280x320")
@@ -67,14 +69,17 @@ class CalGui:
                     col = 0
                     row +=1
                     
-    def show_history(self):
-        history = self.feature.load_memory()
+    def show_last(self):
+        """Displays the last calculation stored in previous.txt (W memory)."""
+        
+        last = self.feature.load_previous()
         
         self.display.delete(0, tk.END)
-        self.display.insert(tk.END, "".join(history))
+        self.display.insert(tk.END, last)
         
-    
     def calculate(self):
+        """Performs the arithmetic operation based on user input,
+        saves result to memory and history files, and updates display."""
         try:
             
             num1 = float(self.first_num)
@@ -122,7 +127,9 @@ class CalGui:
             self.second_num = ""
             self.operation = "" 
             
-    def on_click(self, value): 
+    def on_click(self, value):
+        """Handles button clicks and builds calculator input logic."""
+        
         if value == "C":
             self.first_num = ""
             self.second_num = ""
@@ -133,7 +140,7 @@ class CalGui:
             self.calculate()
         
         elif value == "History":
-            self.show_history()
+            self.show_last()
             
         else:
             operators = ["+", "-", "x", "/", "^"]
