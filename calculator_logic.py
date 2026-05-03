@@ -64,5 +64,13 @@ class CalFeatures:
                 return file.read()
         except FileNotFoundError:
             return ""
+
+class CalAdvFeatures(CalFeatures):
+    
+    def factory_reset(self): 
+        """Clears saved history files"""
+        
+        open("history.txt", "w").close()
+        open("previous.txt", "w").close()
         
     
