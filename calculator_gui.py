@@ -2,6 +2,7 @@
 
 import calculator_logic as cl 
 import tkinter as tk
+from tkinter import messagebox
 
 class CalculatorState:
     
@@ -25,6 +26,7 @@ class CalGui(CalculatorState):
         super().__init__()
         
         self.root = root 
+        self.root.protocol("WM_DELETE_WINDOW", self.on_exit)
         self.root.title("Calculator")
         self.root.geometry("280x360")
         
@@ -154,6 +156,11 @@ class CalGui(CalculatorState):
         self.clear()
         self.display.delete(0, tk.END)
         self.feature.factory_reset()
+    
+    def on_exit(self):
+        """Show thank you message then exit."""
+        messagebox.showinfo("Goodbye", "Thank you for using Calculator!")
+        self.root.destroy()
             
     def on_click(self, value):
         """Handles button clicks and builds calculator input logic."""
