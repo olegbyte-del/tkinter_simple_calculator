@@ -39,8 +39,11 @@ class CalFeatures:
         self.result = ""
         
     def save_memory(self, math_expression, result):
-        """Save a calculation to history.txt file"""
+        """Save a calculation to history.txt and previous.txt file"""
         
+        with open("previous.txt", "w") as file:
+            file.write(f"{math_expression} = {result} \n") 
+            
         with open("history.txt", "a") as file:
             file.write(f"{math_expression} = {result} \n")  
     
@@ -53,3 +56,11 @@ class CalFeatures:
         except FileNotFoundError:
             return []
         
+    def load_previous(self):
+        try:
+            with open("previous.txt", "r") as file:
+                return file.read()
+        except FileNotFoundError:
+            return ""
+        
+    
