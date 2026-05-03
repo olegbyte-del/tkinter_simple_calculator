@@ -14,10 +14,7 @@ class CalGui:
         self.first_num = ""
         self.operation = ""
         self.second_num = ""
-        
-        self.operation = cl.CalFeatures()
         self.feature = cl.CalFeatures()
-        self.expression = ""
         
         self.display = tk.Entry(root, font=("Arial", 25), justify="left")
         self.display.pack(fill="both", padx=10, pady=10)
@@ -60,9 +57,6 @@ class CalGui:
     
     def calculate(self):
         try:
-            expr = self.expression.replace("x", "*").replace("^", "**")
-            
-            self.display.insert(tk.END, "Press anything to start")
             
             num1 = float(self.first_num)
             num2 = float(self.second_num)
@@ -96,23 +90,32 @@ class CalGui:
         except ZeroDivisionError:
             self.display.delete(0, tk.END)
             self.display.insert(tk.END, "Cannot divide by 0")
-            self.expression = ""
+            self.first_num = ""
+            self.second_num = ""
+            self.operation = ""
         
         except Exception:
             self.display.delete(0, tk.END)
             self.display.insert(tk.END, "Error")
-            self.expression = ""
+            self.first_num = ""
+            self.second_num = ""
+            self.operation = "" 
             
     def on_click(self, value): 
         if value == "C":
-            self.expression = ""
+            self.first_num = ""
+            self.second_num = ""
+            self.operation = ""
             self.display.delete(0, tk.END)
-        
+            
         elif value == "=": 
             self.calculate()
         
         else:
-            self.expression += str(value)
-            self.display.delete(0, tk.END)
-            self.display.insert(tk.END, self.expression)
-        
+            self.display.insert(tk.END, value)
+
+            if self.operation == "":
+                self.first_num += value
+            else:
+                self.second_num += value
+            
