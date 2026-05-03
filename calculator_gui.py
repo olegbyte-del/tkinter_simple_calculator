@@ -58,7 +58,7 @@ class CalGui:
                     col = 0
                     row +=1
     
-    def calculate(self, value):
+    def calculate(self):
         try:
             expr = self.expression.replace("x", "*").replace("^", "**")
             
@@ -70,15 +70,29 @@ class CalGui:
             if self.operation == "+": 
                 result = cl.CalOperations.add(num1, num2)
             
-
+            elif self.operation == "-":
+                result = cl.CalOperations.subtract(num1, num2)
             
+            elif self.operation == "x":
+                result = cl.CalOperations.multiply(num1, num2)
             
-            result = eval(expr)
+            elif self.operation == "/": 
+                result = cl.CalOperations.divide(num1, num2)
+            
+            elif self.operation == "^": 
+                result = cl.CalOperations.expo(num1, num2)
+            
+            else: 
+                result = "Error"
             
             self.display.delete(0, tk.END)
             self.display.insert(tk.END, result)
             
-            self.expression = str(result)
+            self.first_num = str(result)
+            self.second_num = ""
+            self.operation = ""
+            
+
         except ZeroDivisionError:
             self.display.delete(0, tk.END)
             self.display.insert(tk.END, "Cannot divide by 0")
