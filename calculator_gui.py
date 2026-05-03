@@ -3,20 +3,30 @@
 import calculator_logic as cl 
 import tkinter as tk
 
-class CalGui:
+class CalculatorState:
+    
+    def __init__(self):
+        self.first_num = ""
+        self.operation = ""
+        self.second_num = ""
+        self.feature = cl.CalAdvFeatures()
+    
+    def clear(self): 
+        self.first_num = ""
+        self.operation = ""
+        self.second_num = ""
+
+class CalGui(CalculatorState):
     """GUI class for a simple calculator using Tkinter"""
     
     def __init__(self, root):
         """Initializes the calculator GUI, layout, and state variables."""
-
+        
+        super().__init__()
+        
         self.root = root 
         self.root.title("Calculator")
-        self.root.geometry("280x320")
-        
-        self.first_num = ""
-        self.operation = ""
-        self.second_num = ""
-        self.feature = cl.CalFeatures()
+        self.root.geometry("280x360")
         
         self.display = tk.Entry(root, font=("Arial", 25), justify="left")
         self.display.pack(fill="both", padx=10, pady=10)
@@ -31,7 +41,7 @@ class CalGui:
                 "4", "5", "6", "+",
                 "7", "8", "9", "-",
                 "0", "x", "/", "^",
-                "=", "History"]
+                "=", "History", "Reset"]
         
         row = 0
         col = 0
@@ -47,14 +57,25 @@ class CalGui:
                 ).grid(row=row, column=0, columnspan=4)
                 row += 1 
                 
+                row += 1
             elif btn == "History": 
-                    tk.Button(
+                tk.Button(
                         frame,
                         text=btn,
                         width=32,
                         height=2,
                         command=lambda x=btn: self.on_click(x)
                     ).grid(row=row, column=0, columnspan=4)
+                row += 1
+                
+            elif btn == "Reset": 
+                tk.Button(
+                        frame,
+                        text=btn,
+                        width=32,
+                        height=2,
+                        command=lambda x=btn: self.on_click(x)
+                    ).grid(row=row, column=0, columnspan=4)        
     
             else:
                 tk.Button(frame, 
@@ -125,7 +146,14 @@ class CalGui:
             self.display.insert(tk.END, "Error")
             self.first_num = ""
             self.second_num = ""
-            self.operation = "" 
+            self.operation = ""
+    
+    def factory_reset(self):
+        """Fully resets calculator"""
+        
+        self.clear()
+        self.display.delete(0, tk.END)
+        self.feature.factory_reset()
             
     def on_click(self, value):
         """Handles button clicks and builds calculator input logic."""
@@ -141,6 +169,9 @@ class CalGui:
         
         elif value == "History":
             self.show_last()
+        
+        elif value == "Reset":
+            self.factory_reset()
             
         else:
             operators = ["+", "-", "x", "/", "^"]
