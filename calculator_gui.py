@@ -9,7 +9,7 @@ class CalGui:
         
         self.root = root 
         self.root.title("Calculator")
-        self.root.geometry("280x300")
+        self.root.geometry("280x320")
         
         self.first_num = ""
         self.operation = ""
@@ -29,12 +29,13 @@ class CalGui:
                 "4", "5", "6", "+",
                 "7", "8", "9", "-",
                 "0", "x", "/", "^",
-                "="]
+                "=", "History"]
         
         row = 0
         col = 0
         for btn in buttons:
             if btn == "=":
+                row += 1 
                 tk.Button(
                     frame,
                     text=btn,
@@ -42,6 +43,17 @@ class CalGui:
                     height=2,
                     command=lambda x=btn: self.on_click(x)
                 ).grid(row=row, column=0, columnspan=4)
+                row += 1 
+                
+            elif btn == "History": 
+                    tk.Button(
+                        frame,
+                        text=btn,
+                        width=32,
+                        height=2,
+                        command=lambda x=btn: self.on_click(x)
+                    ).grid(row=row, column=0, columnspan=4)
+    
             else:
                 tk.Button(frame, 
                         text=btn, 
@@ -85,7 +97,6 @@ class CalGui:
             self.first_num = str(result)
             self.second_num = ""
             self.operation = ""
-            
 
         except ZeroDivisionError:
             self.display.delete(0, tk.END)
@@ -110,6 +121,9 @@ class CalGui:
             
         elif value == "=": 
             self.calculate()
+        
+        elif value == "History":
+            pass
             
         else:
             operators = ["+", "-", "x", "/", "^"]
@@ -122,10 +136,7 @@ class CalGui:
                 
                 self.operation = value
                 self.display.insert(tk.END, value)
-                
-            elif self.first_num and not self.operation:
-                    self.operation = value
-                    
+
             else:
                 self.display.insert(tk.END, value)
                 if self.operation == "":
