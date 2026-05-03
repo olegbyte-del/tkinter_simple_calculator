@@ -6,29 +6,29 @@ class CalOperations:
     
     @staticmethod
     def add(a, b):
-        """Peforms addition"""
+        """Performs addition"""
         return a + b 
     
     @staticmethod
     def subtract(a, b): 
-        """Peforms substraction"""
+        """Performs substraction"""
         return a - b 
     
     @staticmethod
     def multiply(a, b):
-        """Peforms multiplication"""
+        """Performs multiplication"""
         return a * b
     
     @staticmethod
     def divide(a, b):
-        """Peforms division and handles ZeroDivisionError"""
+        """Performs division and handles ZeroDivisionError"""
         if b == 0:
             raise ZeroDivisionError ("Cannot divide by ze")
         return a / b
 
     @staticmethod
     def expo(a, b):
-        """Peforms power"""
+        """Performs power"""
         return a ** b
 
 class CalFeatures:

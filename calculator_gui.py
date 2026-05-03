@@ -5,6 +5,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 class CalculatorState:
+    """Stores all attributes necessary for CalGui"""
     
     def __init__(self):
         self.first_num = ""
